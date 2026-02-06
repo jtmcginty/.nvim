@@ -42,17 +42,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
 -- Jump directly to rightmost window (Kiro terminal)
 vim.keymap.set('n', '<leader>k', '<C-w>l', { desc = 'Jump to Kiro terminal' })
 
--- Window navigation with Ctrl+Arrow keys
-vim.keymap.set('n', '<C-Left>', '<C-w>h', { desc = 'Move to left window' })
-vim.keymap.set('n', '<C-Right>', '<C-w>l', { desc = 'Move to right window' })
-vim.keymap.set('n', '<C-Down>', '<C-w>j', { desc = 'Move to lower window' })
-vim.keymap.set('n', '<C-Up>', '<C-w>k', { desc = 'Move to upper window' })
-
--- Also in terminal mode
-vim.keymap.set('t', '<C-Left>', '<C-\\><C-n><C-w>h', { desc = 'Terminal: Move to left window' })
-vim.keymap.set('t', '<C-Right>', '<C-\\><C-n><C-w>l', { desc = 'Terminal: Move to right window' })
-vim.keymap.set('t', '<C-Down>', '<C-\\><C-n><C-w>j', { desc = 'Terminal: Move to lower window' })
-vim.keymap.set('t', '<C-Up>', '<C-\\><C-n><C-w>k', { desc = 'Terminal: Move to upper window' })
+-- Window navigation with Ctrl+hjkl (standard vim)
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
 
 -- ============================================================================
 -- Editor Settings
