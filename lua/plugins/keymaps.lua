@@ -27,5 +27,11 @@ return {
 
     -- Easier terminal exit
     vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+    -- Toggle line wrap
+    vim.keymap.set('n', '<leader>tw', function()
+      vim.opt.wrap = not vim.opt.wrap:get()
+      print('Line wrap: ' .. (vim.opt.wrap:get() and 'ON' or 'OFF'))
+    end, { desc = 'Toggle line wrap' })
   end,
 }
