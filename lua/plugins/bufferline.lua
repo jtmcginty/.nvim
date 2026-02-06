@@ -44,7 +44,7 @@ return {
         show_close_icon = false,
         show_tab_indicators = true,
         separator_style = 'thin',
-        always_show_bufferline = true,
+        always_show_bufferline = false,
       },
     })
 
