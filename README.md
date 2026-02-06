@@ -6,11 +6,16 @@ A modern, well-documented Neovim setup focused on intuitive defaults and discove
 
 - **🔍 Telescope** - Fuzzy find files, text, and everything else
 - **📁 Neo-tree** - File explorer with git integration
+- **📑 Bufferline** - Visual buffer tabs at the top
 - **🎯 Harpoon** - Lightning-fast navigation between key files
 - **🧠 LSP** - Full IDE features with auto-installing language servers
 - **✨ Blink.cmp** - Fast, modern completion
+- **🎨 Conform** - Auto-format on save (prettier, black, etc.)
 - **🌳 Treesitter** - Advanced syntax highlighting
 - **🔀 Gitsigns** - Git integration in the gutter
+- **⚡ Mini.nvim** - Statusline, surround, and more
+- **🔧 Autopairs** - Auto-close brackets and quotes
+- **📏 Sleuth** - Auto-detect indentation
 - **❓ Which-key** - Discover keybindings as you type
 - **🤖 Kiro** - AI assistant integrated via ACP
 - **🎨 Catppuccin** - Beautiful, easy-on-the-eyes theme
@@ -64,10 +69,14 @@ Leader key: `Space`
 ### Most Important
 
 - `<leader>ff` - Find files
+- `<leader><leader>` - Find open buffers
 - `<leader>sg` - Search text (grep)
 - `<leader>e` - Toggle file explorer
+- `]b` / `[b` - Next/previous buffer
+- `<leader>bd` - Close current buffer
 - `<leader>a` - Add file to harpoon
 - `<leader>h` - Toggle harpoon menu
+- `<Esc>` - Clear search highlights
 - `Ctrl+\` - Toggle Kiro AI chat
 
 See [QUICKSTART.md](./QUICKSTART.md) for complete keybinding reference.
