@@ -17,15 +17,37 @@ vim.opt.clipboard = 'unnamedplus'
 -- Kiro terminal keybinding
 -- ============================================================================
 
--- Open Kiro in narrow vertical split on far right
+-- Helper to check if Kiro terminal exists
+local function get_kiro_window()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local bufname = vim.api.nvim_buf_get_name(buf)
+    if bufname:match("term://.*kiro") then
+      return win, buf
+    end
+  end
+  return nil, nil
+end
+
+-- Toggle Kiro terminal: open if closed, close if open
 vim.keymap.set('n', '<C-\\>', function()
-  vim.cmd('botright vsplit')    -- Open on far right
-  vim.cmd('vertical resize 42') -- 45 columns wide
-  vim.cmd('terminal kiro-cli chat')
-  vim.cmd('startinsert')
-  -- Make window fixed width
-  vim.wo.winfixwidth = true
-end, { desc = 'Open Kiro in terminal split' })
+  local kiro_win, kiro_buf = get_kiro_window()
+  
+  if kiro_win then
+    -- Kiro is open, close it
+    vim.api.nvim_win_close(kiro_win, false)
+  else
+    -- Kiro is closed, open it
+    vim.cmd('botright vsplit')
+    vim.cmd('vertical resize 42')
+    vim.cmd('terminal kiro-cli chat')
+    vim.cmd('startinsert')
+    vim.wo.winfixwidth = true
+  end
+end, { desc = 'Toggle Kiro terminal' })
+
+-- Also allow closing from terminal mode with Ctrl+\
+vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>:lua vim.api.nvim_win_close(0, false)<CR>', { desc = 'Close Kiro terminal' })
 
 -- Terminal mode window navigation (works while in terminal)
 vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h', { desc = 'Terminal: Move to left window' })
