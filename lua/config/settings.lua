@@ -111,6 +111,16 @@ vim.keymap.set('n', '<leader>tw', function()
 end, { desc = 'Toggle line wrap' })
 
 -- ============================================================================
+-- Quickfix Navigation
+-- ============================================================================
+
+-- Navigate quickfix list (LSP diagnostics, grep results, etc.)
+vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Next quickfix item' })
+vim.keymap.set('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous quickfix item' })
+vim.keymap.set('n', '<leader>qo', '<cmd>copen<CR>', { desc = 'Open quickfix list' })
+vim.keymap.set('n', '<leader>qc', '<cmd>cclose<CR>', { desc = 'Close quickfix list' })
+
+-- ============================================================================
 -- Editor Settings
 -- ============================================================================
 
