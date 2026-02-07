@@ -34,8 +34,9 @@ vim.keymap.set('n', '<C-\\>', function()
   local kiro_win, kiro_buf = get_kiro_window()
   
   if kiro_win then
-    -- Kiro is open, close it
+    -- Kiro is open, close window and delete buffer
     vim.api.nvim_win_close(kiro_win, false)
+    vim.api.nvim_buf_delete(kiro_buf, { force = true })
   else
     -- Kiro is closed, open it
     vim.cmd('botright vsplit')
@@ -47,7 +48,13 @@ vim.keymap.set('n', '<C-\\>', function()
 end, { desc = 'Toggle Kiro terminal' })
 
 -- Also allow closing from terminal mode with Ctrl+\
-vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>:lua vim.api.nvim_win_close(0, false)<CR>', { desc = 'Close Kiro terminal' })
+vim.keymap.set('t', '<C-\\>', function()
+  local kiro_win, kiro_buf = get_kiro_window()
+  if kiro_win and kiro_buf then
+    vim.api.nvim_win_close(kiro_win, false)
+    vim.api.nvim_buf_delete(kiro_buf, { force = true })
+  end
+end, { desc = 'Close Kiro terminal' })
 
 -- Terminal mode window navigation (works while in terminal)
 vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h', { desc = 'Terminal: Move to left window' })
