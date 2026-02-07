@@ -19,6 +19,10 @@ A modern, well-documented Neovim setup focused on intuitive defaults and discove
 - **❓ Which-key** - Discover keybindings as you type
 - **🤖 Kiro** - AI assistant integrated via ACP
 - **🎨 Catppuccin** - Beautiful, easy-on-the-eyes theme
+- **🔧 Trouble** - Enhanced diagnostics and quickfix UI
+- **🐙 Lazygit** - Full-featured git UI via Toggleterm
+- **🔍 Spectre** - Project-wide search and replace with preview
+- **🐛 DAP** - Step-through debugging with breakpoints
 
 ## Quick Start
 
@@ -57,6 +61,10 @@ nvim-config-2026/
 │       ├── gitsigns.lua
 │       ├── whichkey.lua
 │       ├── kiro.lua
+│       ├── trouble.lua
+│       ├── toggleterm.lua
+│       ├── spectre.lua
+│       ├── dap.lua
 │       └── extras.lua
 ├── QUICKSTART.md         # Learning guide
 └── README.md             # This file
@@ -78,6 +86,36 @@ Leader key: `Space`
 - `<leader>h` - Toggle harpoon menu
 - `<Esc>` - Clear search highlights
 - `Ctrl+\` - Toggle Kiro AI chat
+
+### Quickfix & Diagnostics
+
+- `]q` / `[q` - Next/previous quickfix item
+- `<leader>qo` - Open quickfix list
+- `<leader>qc` - Close quickfix list
+- `<leader>xx` - Toggle diagnostics (Trouble)
+- `<leader>xd` - Buffer diagnostics (Trouble)
+- `<leader>xq` - Quickfix in Trouble UI
+
+### Git & Terminal
+
+- `<leader>gg` - Open Lazygit
+- `<leader>tt` - Toggle floating terminal
+
+### Search & Replace
+
+- `<leader>sr` - Search and replace (Spectre)
+- `<leader>sw` - Search current word (Spectre)
+- `<leader>sp` - Search in current file (Spectre)
+
+### Debugging
+
+- `<leader>db` - Toggle breakpoint
+- `<leader>dc` - Continue/Start debugging
+- `<leader>ds` - Step over
+- `<leader>di` - Step into
+- `<leader>do` - Step out
+- `<leader>du` - Toggle debug UI
+- `<leader>dt` - Terminate debugging
 
 See [QUICKSTART.md](./QUICKSTART.md) for complete keybinding reference.
 
@@ -104,8 +142,9 @@ This config prioritizes:
 - Neovim >= 0.10
 - Git
 - A [Nerd Font](https://www.nerdfonts.com/) (for icons)
-- `ripgrep` (for telescope grep)
+- `ripgrep` (for telescope grep and Spectre)
 - `make` (for telescope-fzf-native)
+- `lazygit` (optional, for git UI - `brew install lazygit`)
 
 ## Troubleshooting
 

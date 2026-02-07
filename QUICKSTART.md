@@ -113,6 +113,79 @@ This is your secret weapon for focused work!
 | `<leader>gr` | Reset hunk |
 | `<leader>gb` | Blame line |
 
+### Lazygit (Full Git UI)
+
+| Key | Action |
+|-----|--------|
+| `<leader>gg` | Open Lazygit |
+
+**Inside Lazygit:**
+- `Tab` - Switch between panels
+- `Enter` - Stage/unstage/view
+- `c` - Commit
+- `P` - Push
+- `p` - Pull
+- `?` - Show help
+- `q` or `Esc Esc` - Close
+
+### Quickfix & Diagnostics
+
+| Key | Action |
+|-----|--------|
+| `]q` / `[q` | Next/previous quickfix item |
+| `<leader>qo` | Open quickfix list |
+| `<leader>qc` | Close quickfix list |
+| `<leader>xx` | Toggle diagnostics (Trouble) |
+| `<leader>xd` | Buffer diagnostics (Trouble) |
+| `<leader>xs` | Document symbols (Trouble) |
+| `<leader>xq` | Quickfix in Trouble UI |
+
+**Workflow:**
+1. Search with `<leader>sg`, press `Ctrl+q` to send to quickfix
+2. Use `]q`/`[q` to jump through results
+3. Or use `<leader>xq` to view in Trouble UI
+
+### Search & Replace (Spectre)
+
+| Key | Action |
+|-----|--------|
+| `<leader>sr` | Open search/replace panel |
+| `<leader>sw` | Search current word |
+| `<leader>sp` | Search in current file |
+
+**Inside Spectre:**
+1. Enter search term in first field
+2. Enter replacement in second field
+3. Review preview of changes
+4. Press `<leader>rc` to replace all
+5. Press `q` to close
+
+### Terminal
+
+| Key | Action |
+|-----|--------|
+| `<leader>tt` | Toggle floating terminal |
+| `Esc Esc` | Close terminal |
+
+### Debugging (DAP)
+
+| Key | Action |
+|-----|--------|
+| `<leader>db` | Toggle breakpoint |
+| `<leader>dc` | Continue/Start debugging |
+| `<leader>ds` | Step over |
+| `<leader>di` | Step into |
+| `<leader>do` | Step out |
+| `<leader>du` | Toggle debug UI |
+| `<leader>dt` | Terminate debugging |
+
+**Workflow:**
+1. Set breakpoint with `<leader>db` (🔴 appears)
+2. Start debugging with `<leader>dc`
+3. Step through with `<leader>ds`
+4. Inspect variables in debug UI
+5. Terminate with `<leader>dt`
+
 ### Kiro AI Assistant
 
 | Key | Action |
@@ -174,6 +247,32 @@ This is your secret weapon for focused work!
 2. Ask it a question about your code
 3. Press `Ctrl+'` to add current file to context
 4. Select some code (visual mode), then `Ctrl+'` to add just that selection
+
+### Week 2: Power User Features
+
+**Quickfix Workflow:**
+1. Search with `<leader>sg` for "TODO"
+2. Press `Ctrl+q` to send results to quickfix
+3. Use `]q`/`[q` to jump through each TODO
+4. Or press `<leader>xq` to view in Trouble UI
+
+**Git Workflow:**
+1. Press `<leader>gg` to open Lazygit
+2. Stage changes, write commit message
+3. Push with `P`
+4. Close with `q`
+
+**Search & Replace:**
+1. Press `<leader>sr` to open Spectre
+2. Search for old variable name
+3. Enter new name
+4. Review changes, press `<leader>rc` to apply
+
+**Debugging:**
+1. Set breakpoint with `<leader>db`
+2. Start with `<leader>dc`
+3. Step through with `<leader>ds`
+4. Inspect variables in UI
 
 ---
 
