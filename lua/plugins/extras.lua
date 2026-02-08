@@ -14,13 +14,6 @@ return {
     end,
   },
 
-  -- Surround text objects (ys, cs, ds)
-  {
-    'kylechui/nvim-surround',
-    event = 'VeryLazy',
-    config = true,
-  },
-
   -- Auto-close brackets
   {
     'windwp/nvim-autopairs',
@@ -86,6 +79,7 @@ return {
           { ':UndotreeToggle', description = 'Toggle undo tree' },
           { ':MarkdownPreview', description = 'Preview markdown' },
           { ':Copilot', description = 'Copilot commands' },
+          { ':VimBeGood', description = 'Practice Vim motions (basic)' },
         },
         extensions = {
           lazy_nvim = { auto_register = true },
@@ -95,5 +89,11 @@ return {
         include_legendary_cmds = true,
       })
     end,
+  },
+
+  -- Vim motion practice games
+  {
+    'ThePrimeagen/vim-be-good',
+    cmd = 'VimBeGood',
   },
 }
