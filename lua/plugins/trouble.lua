@@ -5,6 +5,7 @@
 
 return {
   'folke/trouble.nvim',
+  enabled = true, -- Set to false to disable for testing
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   cmd = 'Trouble',
   keys = {

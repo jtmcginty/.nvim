@@ -29,12 +29,21 @@ local function get_kiro_window()
   return nil, nil
 end
 
+-- Helper to kill Kiro process in buffer
+local function kill_kiro_process(buf)
+  local chan = vim.api.nvim_buf_get_var(buf, 'terminal_job_id')
+  if chan then
+    vim.fn.jobstop(chan)
+  end
+end
+
 -- Toggle Kiro terminal: open if closed, close if open
 vim.keymap.set('n', '<C-\\>', function()
   local kiro_win, kiro_buf = get_kiro_window()
   
   if kiro_win then
-    -- Kiro is open, close window and delete buffer
+    -- Kiro is open, kill process and close window
+    kill_kiro_process(kiro_buf)
     vim.api.nvim_win_close(kiro_win, false)
     vim.api.nvim_buf_delete(kiro_buf, { force = true })
   else
@@ -51,6 +60,7 @@ end, { desc = 'Toggle Kiro terminal' })
 vim.keymap.set('t', '<C-\\>', function()
   local kiro_win, kiro_buf = get_kiro_window()
   if kiro_win and kiro_buf then
+    kill_kiro_process(kiro_buf)
     vim.api.nvim_win_close(kiro_win, false)
     vim.api.nvim_buf_delete(kiro_buf, { force = true })
   end

@@ -7,6 +7,7 @@ return {
   -- Core DAP plugin
   {
     'mfussenegger/nvim-dap',
+    enabled = true, -- Set to false to disable for testing
     dependencies = {
       -- UI for DAP
       'rcarriga/nvim-dap-ui',

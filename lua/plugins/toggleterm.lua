@@ -6,6 +6,7 @@
 return {
   'akinsho/toggleterm.nvim',
   version = '*',
+  enabled = true, -- Set to false to disable for testing
   keys = {
     { '<leader>tt', '<cmd>ToggleTerm direction=float<cr>', desc = 'Toggle terminal', mode = { 'n', 't' } },
     { '<leader>gg', '<cmd>lua _lazygit_toggle()<cr>', desc = 'Lazygit' },

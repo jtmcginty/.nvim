@@ -5,6 +5,7 @@
 
 return {
   'nvim-pack/nvim-spectre',
+  enabled = true, -- Set to false to disable for testing
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
