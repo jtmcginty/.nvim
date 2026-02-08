@@ -67,6 +67,8 @@ return {
     
     -- LSP
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Search Diagnostics' })
+    vim.keymap.set('n', '<leader>ss', builtin.lsp_document_symbols, { desc = 'Search document Symbols' })
+    vim.keymap.set('n', '<leader>sS', builtin.lsp_dynamic_workspace_symbols, { desc = 'Search workspace Symbols' })
     
     -- Config
     vim.keymap.set('n', '<leader>sn', function()

@@ -34,10 +34,34 @@ return {
         map('<leader>ca', vim.lsp.buf.code_action, 'Code Action')
         map('K', vim.lsp.buf.hover, 'Hover documentation')
 
+        -- Call hierarchy
+        map('<leader>ci', vim.lsp.buf.incoming_calls, 'Incoming Calls')
+        map('<leader>co', vim.lsp.buf.outgoing_calls, 'Outgoing Calls')
+
         -- Diagnostics
         map('<leader>cd', vim.diagnostic.open_float, 'Show diagnostic')
         map('[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
         map(']d', vim.diagnostic.goto_next, 'Next diagnostic')
+        
+        -- Enable inlay hints if supported
+        if client and client.supports_method('textDocument/inlayHint') then
+          vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+        end
+        
+        -- Highlight symbol under cursor
+        if client and client.supports_method('textDocument/documentHighlight') then
+          local highlight_group = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            buffer = event.buf,
+            group = highlight_group,
+            callback = vim.lsp.buf.document_highlight,
+          })
+          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            buffer = event.buf,
+            group = highlight_group,
+            callback = vim.lsp.buf.clear_references,
+          })
+        end
         
         -- Optimize LSP for performance
         local client = vim.lsp.get_client_by_id(event.data.client_id)
