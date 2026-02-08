@@ -32,5 +32,11 @@ return {
         auto_show_delay_ms = 200,
       },
     },
+    cmdline = {
+      enabled = true,
+      completion = {
+        menu = { auto_show = true },
+      },
+    },
   },
 }

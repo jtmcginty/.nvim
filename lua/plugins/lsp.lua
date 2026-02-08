@@ -14,6 +14,14 @@ return {
     { 'j-hui/fidget.nvim', opts = {} },
   },
   config = function()
+    -- Show LSP clients in statusline
+    _G.lsp_clients = function()
+      local clients = vim.lsp.get_clients({bufnr=0})
+      if #clients == 0 then return '' end
+      local names = vim.tbl_map(function(c) return c.name end, clients)
+      return ' [' .. table.concat(names, ',') .. ']'
+    end
+
     -- This function runs when an LSP attaches to a buffer
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),

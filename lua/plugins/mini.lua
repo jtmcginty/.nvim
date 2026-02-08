@@ -8,10 +8,11 @@ return {
   version = '*',
   config = function()
     -- Mini.statusline - Clean status bar at bottom
-    require('mini.statusline').setup({
-      use_icons = vim.g.have_nerd_font or true,
-      set_vim_settings = false,
-    })
+    -- Disabled in favor of lualine for LSP display
+    -- require('mini.statusline').setup({
+    --   use_icons = vim.g.have_nerd_font or true,
+    --   set_vim_settings = false,
+    -- })
 
     -- Mini.surround - Add/delete/replace surrounding characters
     -- Usage:
