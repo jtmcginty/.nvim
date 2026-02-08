@@ -8,10 +8,10 @@ A modern, well-documented Neovim setup focused on intuitive defaults and discove
 - **📁 Neo-tree** - File explorer with git integration
 - **📑 Bufferline** - Visual buffer tabs at the top
 - **🎯 Harpoon** - Lightning-fast navigation between key files
-- **🧠 LSP** - Full IDE features with auto-installing language servers
+- **🧠 LSP** - Full IDE features with inlay hints, call hierarchy, and workspace symbols
 - **✨ Blink.cmp** - Fast, modern completion
 - **🎨 Conform** - Auto-format on save (prettier, black, etc.)
-- **🌳 Treesitter** - Advanced syntax highlighting
+- **🌳 Treesitter** - Advanced syntax highlighting and code understanding
 - **🔀 Gitsigns** - Git integration in the gutter
 - **⚡ Mini.nvim** - Statusline, surround, and more
 - **🔧 Autopairs** - Auto-close brackets and quotes
@@ -23,6 +23,10 @@ A modern, well-documented Neovim setup focused on intuitive defaults and discove
 - **🐙 Lazygit** - Full-featured git UI via Toggleterm
 - **🔍 Spectre** - Project-wide search and replace with preview
 - **🐛 DAP** - Step-through debugging with breakpoints
+- **⚡ Flash** - Labeled jumps for instant navigation
+- **🌲 Undotree** - Visualize and navigate undo history
+- **💪 Hardtime** - Learn better Vim motions through hints
+- **🗄️ Dadbod** - Database UI for browsing and querying
 
 ## Quick Start
 
@@ -86,6 +90,21 @@ Leader key: `Space`
 - `<leader>h` - Toggle harpoon menu
 - `<Esc>` - Clear search highlights
 - `Ctrl+\` - Toggle Kiro AI chat
+- `s` + char - Flash jump (labeled navigation)
+- `<leader>u` - Toggle undotree
+- `<leader>D` - Toggle database UI
+
+### LSP & Code Navigation
+
+- `gd` - Go to definition
+- `gr` - Go to references
+- `K` - Hover documentation
+- `<leader>cr` - Rename symbol
+- `<leader>ca` - Code action
+- `<leader>ci` - Incoming calls
+- `<leader>co` - Outgoing calls
+- `<leader>ss` - Search document symbols
+- `<leader>sS` - Search workspace symbols
 
 ### Quickfix & Diagnostics
 
