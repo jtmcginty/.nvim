@@ -5,9 +5,10 @@
 
 return {
   'folke/trouble.nvim',
-  enabled = true, -- Set to false to disable for testing
+  enabled = true,
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   cmd = 'Trouble',
+  event = 'VeryLazy', -- Load after startup is complete
   keys = {
     { '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
     { '<leader>xd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
@@ -16,6 +17,9 @@ return {
     { '<leader>xq', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
   },
   opts = {
-    -- Use default configuration
+    auto_close = true,
+    auto_open = false,
+    auto_preview = false,
+    auto_refresh = false,
   },
 }

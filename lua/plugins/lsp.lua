@@ -59,7 +59,23 @@ return {
           },
         },
       },
-      pyright = {},
+      pyright = {
+        before_init = function(_, config)
+          -- Auto-detect virtual environment
+          local venv_paths = { '.venv', 'venv', 'env', '.env' }
+          for _, venv in ipairs(venv_paths) do
+            local venv_python = vim.fn.getcwd() .. '/' .. venv .. '/bin/python'
+            if vim.fn.executable(venv_python) == 1 then
+              config.settings = vim.tbl_deep_extend('force', config.settings or {}, {
+                python = {
+                  pythonPath = venv_python,
+                },
+              })
+              break
+            end
+          end
+        end,
+      },
       rust_analyzer = {},
       ts_ls = {}, -- TypeScript/JavaScript
       gopls = {},
