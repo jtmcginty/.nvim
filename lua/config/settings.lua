@@ -71,10 +71,7 @@ vim.keymap.set('n', '<C-\\>', function()
     vim.cmd('botright vsplit')
     vim.cmd('vertical resize 42')
     vim.cmd('terminal kiro-cli chat')
-    vim.defer_fn(function()
-      vim.cmd('redraw')
-      vim.cmd('startinsert')
-    end, 100)
+    vim.cmd('startinsert')
     vim.wo.winfixwidth = true
   end
 end, { desc = 'Toggle Kiro terminal' })
@@ -93,10 +90,7 @@ vim.keymap.set({ 'n', 't' }, '<M-\\>', function()
     vim.cmd('botright vsplit')
     vim.cmd('vertical resize 42')
     vim.cmd('terminal claude')
-    vim.defer_fn(function()
-      vim.cmd('redraw')
-      vim.cmd('startinsert')
-    end, 100)
+    vim.cmd('startinsert')
     vim.wo.winfixwidth = true
   end
 end, { desc = 'Toggle Claude terminal' })
