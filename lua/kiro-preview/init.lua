@@ -20,11 +20,15 @@ local function get_ai_window()
   return nil
 end
 
--- Stop the file watcher timer
+-- Stop the file watcher
 local function stop_timer()
   if timer then
-    timer:stop()
-    timer:close()
+    if timer.stop then
+      timer:stop()
+    end
+    if timer.close then
+      timer:close()
+    end
     timer = nil
   end
 end
@@ -106,21 +110,47 @@ local function check_for_changes()
 end
 
 function M.setup()
-  -- Initialize file mtimes
-  local cwd = vim.fn.getcwd()
-  local files = vim.fn.glob(cwd .. "/**/*", false, true)
-  for _, file in ipairs(files) do
-    if vim.fn.isdirectory(file) == 0 then
-      local stat = vim.loop.fs_stat(file)
-      if stat then
-        file_mtimes[file] = stat.mtime.sec
+  -- Start file watching when AI terminal opens
+  vim.api.nvim_create_autocmd('TermOpen', {
+    callback = function()
+      local bufname = vim.api.nvim_buf_get_name(0)
+      if bufname:match("term://.*kiro") or bufname:match("term://.*claude") then
+        if timer then return end  -- Already started
+        
+        -- Use OS-level file watching (non-blocking, event-driven)
+        local cwd = vim.fn.getcwd()
+        local handle = vim.loop.new_fs_event()
+        
+        handle:start(cwd, {recursive = true}, vim.schedule_wrap(function(err, filename, events)
+          if err then return end
+          if not get_ai_window() then
+            handle:stop()
+            return
+          end
+          
+          if filename then
+            local filepath = cwd .. '/' .. filename
+            if vim.fn.filereadable(filepath) == 1 then
+              -- Track modification time to avoid duplicates
+              local stat = vim.loop.fs_stat(filepath)
+              if stat then
+                local mtime = stat.mtime.sec
+                local last_mtime = file_mtimes[filepath]
+                
+                if not last_mtime or mtime > last_mtime then
+                  file_mtimes[filepath] = mtime
+                  recent_files[filepath] = os.time()
+                  open_in_main_pane(filepath)
+                end
+              end
+            end
+          end
+        end))
+        
+        timer = handle  -- Store handle for cleanup
       end
-    end
-  end
-
-  -- Poll for changes every 500ms
-  timer = vim.loop.new_timer()
-  timer:start(500, 500, vim.schedule_wrap(check_for_changes))
+    end,
+  })
 
   -- Stop timer on Neovim exit
   vim.api.nvim_create_autocmd('VimLeavePre', {

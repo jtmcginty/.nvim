@@ -20,18 +20,15 @@ return {
       })
       
       -- Force treesitter to start for file buffers
-      vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter', 'BufReadPost', 'FileType'}, {
+      vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
         callback = function(args)
           local bufnr = args.buf
           local buftype = vim.bo[bufnr].buftype
           local filetype = vim.bo[bufnr].filetype
           
-          -- Start treesitter for normal files and acwrite buffers (git diff, etc.)
+          -- Start treesitter for normal files and acwrite buffers (git diff)
           if (buftype == '' or buftype == 'acwrite') and filetype ~= '' then
-            pcall(vim.treesitter.stop, bufnr)
-            vim.defer_fn(function()
-              pcall(vim.treesitter.start, bufnr)
-            end, 10)
+            pcall(vim.treesitter.start, bufnr)
           end
         end,
       })

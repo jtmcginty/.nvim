@@ -71,7 +71,10 @@ vim.keymap.set('n', '<C-\\>', function()
     vim.cmd('botright vsplit')
     vim.cmd('vertical resize 42')
     vim.cmd('terminal kiro-cli chat')
-    vim.cmd('startinsert')
+    vim.defer_fn(function()
+      vim.cmd('redraw')
+      vim.cmd('startinsert')
+    end, 100)
     vim.wo.winfixwidth = true
   end
 end, { desc = 'Toggle Kiro terminal' })
@@ -90,7 +93,10 @@ vim.keymap.set({ 'n', 't' }, '<M-\\>', function()
     vim.cmd('botright vsplit')
     vim.cmd('vertical resize 42')
     vim.cmd('terminal claude')
-    vim.cmd('startinsert')
+    vim.defer_fn(function()
+      vim.cmd('redraw')
+      vim.cmd('startinsert')
+    end, 100)
     vim.wo.winfixwidth = true
   end
 end, { desc = 'Toggle Claude terminal' })
@@ -111,23 +117,19 @@ vim.keymap.set('t', '<C-l>', '<C-\\><C-n><C-w>l', { desc = 'Terminal: Move to ri
 vim.keymap.set('t', '<C-j>', '<C-\\><C-n><C-w>j', { desc = 'Terminal: Move to lower window' })
 vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w>k', { desc = 'Terminal: Move to upper window' })
 
--- Auto-enter insert mode when entering terminal buffer
-vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = 'term://*',
-  callback = function()
-    vim.cmd('startinsert')
-  end,
-})
-
 -- Load kiro-preview for AI file watching
 require("kiro-preview").setup()
 
--- Cleanup Kiro process on Neovim exit
+-- Cleanup Kiro and Claude processes on Neovim exit
 vim.api.nvim_create_autocmd('VimLeavePre', {
   callback = function()
     local _, kiro_buf = get_kiro_window()
     if kiro_buf then
       kill_kiro_process(kiro_buf)
+    end
+    local _, claude_buf = get_claude_window()
+    if claude_buf then
+      kill_claude_process(claude_buf)
     end
   end,
 })
@@ -147,15 +149,6 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
 
 -- Clear search highlights on <Esc>
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlights' })
-
--- Clear command line after executing commands to reduce anxiety
-vim.api.nvim_create_autocmd('CmdlineLeave', {
-  callback = function()
-    vim.defer_fn(function()
-      vim.cmd('echo ""')
-    end, 100)
-  end,
-})
 
 -- Auto-center screen after jumps
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Jump down half page (centered)' })
