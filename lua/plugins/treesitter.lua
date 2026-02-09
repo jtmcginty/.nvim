@@ -6,17 +6,27 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    lazy = false,
+    priority = 100,
     config = function()
-      local ok, configs = pcall(require, 'nvim-treesitter.configs')
-      if not ok then
-        return
-      end
-      configs.setup({
+      require('nvim-treesitter').setup({
         ensure_installed = { 'lua', 'python', 'javascript', 'typescript', 'rust', 'go', 'bash', 'markdown', 'json', 'yaml' },
         auto_install = true,
-        highlight = { enable = true },
+        highlight = { 
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
         indent = { enable = true },
+      })
+      
+      -- Force treesitter to start for file buffers
+      vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+        callback = function(args)
+          local bufnr = args.buf
+          if vim.bo[bufnr].buftype == '' and vim.bo[bufnr].filetype ~= '' then
+            pcall(vim.treesitter.start, bufnr)
+          end
+        end,
       })
     end,
   },
