@@ -33,8 +33,58 @@ local function stop_timer()
   end
 end
 
+-- Check if file should be ignored
+local function should_ignore(filepath)
+  -- Binary extensions
+  local extensions = {
+    '.pyc', '.pyo', '.so', '.dylib', '.dll', '.exe', '.bin', '.o', '.a',
+    '.jpg', '.jpeg', '.png', '.gif', '.pdf', '.zip', '.tar', '.gz',
+    '.class', '.jar', '.war',  -- Java
+    '.wasm',  -- WebAssembly
+  }
+  for _, ext in ipairs(extensions) do
+    if filepath:match(ext .. '$') then
+      return true
+    end
+  end
+  
+  -- Cache/temp/build directories
+  local ignore_patterns = {
+    '%.pytest_cache/',
+    '__pycache__/',
+    'node_modules/',
+    '%.git/',
+    '%.venv/',
+    'venv/',
+    '%.cache/',
+    '%.ruff_cache/',
+    'dist/',
+    'build/',
+    'target/',  -- Rust, Java
+    '%.next/',  -- Next.js
+    '%.nuxt/',  -- Nuxt
+    'out/',
+    '%.turbo/',
+    'coverage/',
+    '%.nyc_output/',
+    'tmp/',
+    'temp/',
+  }
+  for _, pattern in ipairs(ignore_patterns) do
+    if filepath:match(pattern) then
+      return true
+    end
+  end
+  
+  return false
+end
+
 -- Open file in main pane (not AI terminal)
 local function open_in_main_pane(filepath)
+  if should_ignore(filepath) then
+    return
+  end
+  
   local ai_win = get_ai_window()
   if not ai_win then
     return
@@ -75,6 +125,19 @@ local function open_in_main_pane(filepath)
   -- Return focus to original window (likely AI terminal)
   if vim.api.nvim_win_is_valid(current_win) then
     vim.api.nvim_set_current_win(current_win)
+  end
+  
+  -- Reveal in Neo-tree without stealing focus
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.api.nvim_buf_get_option(buf, 'filetype') == 'neo-tree' then
+      local ok, filesystem = pcall(require, 'neo-tree.sources.filesystem')
+      if ok then
+        local state = require('neo-tree.sources.manager').get_state('filesystem')
+        filesystem.navigate(state, state.path, filepath)
+      end
+      break
+    end
   end
   
   print("AI modified: " .. vim.fn.fnamemodify(filepath, ":~:."))
