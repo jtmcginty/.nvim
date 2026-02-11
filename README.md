@@ -2,6 +2,50 @@
 
 A modern, well-documented Neovim setup focused on intuitive defaults and discoverability.
 
+## Quick Setup (New Machine)
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/YOUR_USERNAME/.nvim.git ~/.config/.nvim
+
+# 2. Backup existing config (if any)
+mv ~/.config/nvim ~/.config/nvim.backup 2>/dev/null || true
+
+# 3. Create symlink
+ln -s ~/.config/.nvim ~/.config/nvim
+
+# 4. Install pre-commit hooks
+cd ~/.config/.nvim
+pre-commit install
+
+# 5. Launch Neovim (plugins will auto-install)
+nvim
+```
+
+## Dependencies
+
+### Required
+- **Neovim >= 0.10** - `brew install neovim`
+- **Git** - Usually pre-installed on macOS
+- **[Nerd Font](https://www.nerdfonts.com/)** - For icons (recommended: MesloLGM Nerd Font)
+- **ripgrep** - For telescope grep and Spectre: `brew install ripgrep`
+- **make** - For telescope-fzf-native (Xcode Command Line Tools)
+
+### Optional
+- **lazygit** - For git UI: `brew install lazygit`
+- **pre-commit** - For git hooks: `brew install pre-commit`
+- **detect-secrets** - For secret scanning: `pip install detect-secrets`
+
+### Language Servers (Auto-installed via Mason)
+LSP servers install automatically when you open files. Common ones:
+- TypeScript/JavaScript: `tsserver`
+- Python: `pyright`
+- Lua: `lua_ls`
+- Go: `gopls`
+- Rust: `rust_analyzer`
+
+Run `:Mason` to manage language servers manually.
+
 ## Features
 
 - **🔍 Telescope** - Fuzzy find files, text, and everything else
@@ -39,8 +83,9 @@ See [QUICKSTART.md](./QUICKSTART.md) for detailed setup and learning guide.
 # Backup existing config
 mv ~/.config/nvim ~/.config/nvim.backup
 
-# Create symlink
-ln -s ~/nvim-config-2026 ~/.config/nvim
+# Clone and symlink
+git clone https://github.com/YOUR_USERNAME/.nvim.git ~/.config/.nvim
+ln -s ~/.config/.nvim ~/.config/nvim
 
 # Launch Neovim (plugins will auto-install)
 nvim
