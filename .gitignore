@@ -22,6 +22,7 @@ local.lua
 *.pem
 *.key
 !*.pub
+!.secrets.baseline
 
 # Logs
 *.log
