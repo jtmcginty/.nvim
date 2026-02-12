@@ -12,10 +12,10 @@ return {
       -- UI for DAP
       'rcarriga/nvim-dap-ui',
       'nvim-neotest/nvim-nio',
-      
+
       -- Mason integration for auto-installing debug adapters
       'jay-babu/mason-nvim-dap.nvim',
-      
+
       -- Virtual text showing variable values
       'theHamsta/nvim-dap-virtual-text',
     },
@@ -41,6 +41,10 @@ return {
           'python',
           'node2',
           'delve', -- Go
+          'codelldb', -- Rust, C, C++
+          'java-debug-adapter', -- Java
+          'ruby-debug-adapter', -- Ruby
+          'bash-debug-adapter', -- Bash
         },
       })
 
